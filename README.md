@@ -27,6 +27,7 @@ Aplicación de gestión de finanzas personales desarrollada con Python. Permite 
 ## 🎯 Objetivos
 
 Practicar desarrollo de software, mejorar mis habilidades de programación y construir un portafolio de proyectos personales.
+
 ---
 
 Creado con 🎓 con fines educativos y de práctica personal.
