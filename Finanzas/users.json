@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "name": "Administrador"
+    },
+    {
+      "username": "juan_prueba",
+      "password_hash": "0d9d09e157f7c29a43c02e57f081915d6fe2f10da1710672086f8ad73bb95cb2",
+      "name": "Juan Perez Prueba"
+    }
+  ]
+}
