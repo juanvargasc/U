@@ -59,8 +59,7 @@ Este sistema es una aplicación de consola en Python para gestión de finanzas p
 
 ```
 Finanzas/
-├── main.py              # Punto de entrada, CLI
-├── auth.py              # Módulo de autenticación
+├── auth.py              # Módulo de autenticación (login, registro, logout)
 ├── finance_app.py       # Lógica principal de finanzas
 ├── utils.py             # Funciones de utilidad
 ├── users.json           # Base de datos de usuarios
@@ -74,8 +73,7 @@ Finanzas/
 
 | Archivo | Descripción |
 |---------|-------------|
-| `main.py` | Interfaz de línea de comandos (CLI) |
-| `auth.py` | Módulo de autenticación (login, registro, logout) |
+| `auth.py` | Módulo de autenticación (login, registro, logout, sesiones) |
 | `finance_app.py` | Lógica principal: operaciones, reportes, categorías |
 | `utils.py` | Funciones auxiliares: formateo, fechas, validación |
 | `users.json` | Persistencia de usuarios (formato JSON) |
