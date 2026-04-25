@@ -27,11 +27,6 @@ Aplicación de gestión de finanzas personales desarrollada con Python. Permite 
 ## 🎯 Objetivos
 
 Practicar desarrollo de software, mejorar mis habilidades de programación y construir un portafolio de proyectos personales.
-
-## 📅 Fecha de creación
-
-Este repositorio se está manteniendo de manera activa con actualizaciones regulares.
-
 ---
 
 Creado con 🎓 con fines educativos y de práctica personal.
