@@ -1,4 +1,4 @@
-package U;
+
 import java.util.Scanner;
 
 public class Dias_semana {

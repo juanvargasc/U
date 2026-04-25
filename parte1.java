@@ -1,4 +1,4 @@
-package U;
+
 import java.util.Scanner;
 public class parte1 {
 public static void main(String[] args) {

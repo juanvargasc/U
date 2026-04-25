@@ -1,4 +1,3 @@
-package U;
 import java.util.Scanner;
 
 public class calculo_area {
