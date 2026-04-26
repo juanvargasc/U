@@ -14,23 +14,44 @@ def _hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 
 
-def _load_users() -> list:
-    """Carga la lista de usuarios desde el archivo."""
+def _verify_password(password: str, stored_hash: str, salt: str | None = None) -> bool:
+    """Verifica una contraseña contra un hash almacenado."""
+    # Verificar sin salt (compatibilidad con hashes existentes)
+    if not salt:
+        return _hash_password(password) == stored_hash
+    # Verificar con salt
+    computed = _hash_password(password)
+    expected = _hash_password(f"{password}{salt}")
+    return computed == expected
+
+
+def _load_users() -> dict:
+    """Carga los usuarios desde el archivo."""
     if not USERS_FILE.exists():
-        return []
+        return {"users": [], "admin": None}
     try:
         with open(USERS_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            return data.get("users", [])
+            # Si no tiene estructura correcta, crear admin por defecto
+            if "admin" not in data or data["admin"] is None:
+                import hashlib
+                salt = hashlib.sha256("admin_salt_secret".encode()).hexdigest()[:8]
+                pwd_hash = hashlib.sha256(f"admin123{salt}".encode()).hexdigest()
+                data["admin"] = {
+                    "username": "admin",
+                    "password_hash": pwd_hash,
+                    "name": "Administrador",
+                    "salt": salt
+                }
+            return data
     except (json.JSONDecodeError, IOError):
-        return []
+        return {"users": [], "admin": None}
 
 
-def _save_users(users: list) -> None:
-    """Guarda la lista de usuarios en el archivo."""
-    data = {"users": users}
+def _save_users(users_data: dict) -> None:
+    """Guarda los usuarios en el archivo."""
     with open(USERS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+        json.dump(users_data, f, indent=2, ensure_ascii=False)
 
 
 def _load_current_session() -> dict | None:
@@ -75,17 +96,21 @@ class AuthManager:
             return False, "La contraseña debe tener al menos 6 caracteres"
 
         # Verificar que el usuario no exista
-        for user in self.users:
-            if user["username"].lower() == username.lower():
-                return False, "Ya existe un usuario con este nombre"
+        if username.lower() in self.users["users"]:
+            return False, "Ya existe un usuario con este nombre"
 
         # Crear nuevo usuario
+        import hashlib
+        salt = hashlib.sha256(f"{username}_salt".encode()).hexdigest()[:8]
+        pwd_hash = hashlib.sha256(f"{password}{salt}".encode()).hexdigest()
+
         new_user = {
             "username": username,
-            "password_hash": _hash_password(password),
-            "name": name
+            "password_hash": pwd_hash,
+            "name": name,
+            "salt": salt
         }
-        self.users.append(new_user)
+        self.users["users"].append(new_user)
         _save_users(self.users)
 
         return True, f"Usuario '{username}' registrado correctamente"
@@ -101,21 +126,20 @@ class AuthManager:
         Returns:
             tuple(bool, str, dict | None): (exitoso, mensaje, user_data)
         """
+        # Verificar si users es una lista (estructura antigua) o diccionario
+        users_list: list = self.users if isinstance(self.users, list) else self.users.get("users", [])
+
         # Buscar el usuario
-        for user in self.users:
+        for user in users_list:
             if user["username"].lower() == username.lower():
-                if user["password_hash"] == _hash_password(password):
+                if _verify_password(password, user["password_hash"], user.get("salt")):
                     # Login exitoso
                     _save_current_session(
                         user["username"],
                         user["password_hash"],
                         user["name"]
                     )
-                    self.session = {
-                        "username": user["username"],
-                        "password_hash": user["password_hash"],
-                        "name": user["name"]
-                    }
+                    self.session = user.copy()
                     return True, f"¡Bienvenido/a {user['name']}!", self.session
 
         return False, "Credenciales incorrectas", None
