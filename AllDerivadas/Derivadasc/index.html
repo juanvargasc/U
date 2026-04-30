@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Derivadas Interactivas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark">d/dx</span>
+      <span>Derivadas</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      <a href="#intro">Introducción</a>
+      <a href="#reglas">Reglas</a>
+      <a href="#trigonometricas">Trigonométricas</a>
+      <a href="#inversas">Inversas</a>
+      <a href="#implicita">Implícita</a>
+      <a href="#logaritmica">Logarítmica</a>
+      <a href="#practica">Práctica</a>
+    </nav>
+    <button class="icon-button" id="themeToggle" type="button" aria-label="Cambiar modo claro u oscuro" title="Cambiar tema">
+      <span id="themeIcon" aria-hidden="true">☾</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">Cálculo diferencial paso a paso</p>
+        <h1>Aprende derivadas viendo cómo cambian las funciones.</h1>
+        <p>Explora la pendiente de una tangente, practica reglas de derivación, resuelve ejercicios guiados y compara una función con su derivada en una gráfica dinámica.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#laboratorio">Abrir laboratorio</a>
+          <a class="secondary-button" href="#intro">Empezar teoría</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Visualización de una curva con recta tangente">
+        <canvas id="heroCanvas" width="720" height="520"></canvas>
+      </div>
+    </section>
+
+    <section class="progress-shell" aria-label="Progreso del curso">
+      <div>
+        <span class="section-kicker">Tu progreso</span>
+        <h2>Avance del recorrido</h2>
+      </div>
+      <div class="progress-info">
+        <div class="progress-track"><span id="progressBar"></span></div>
+        <strong id="progressText">0%</strong>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="Índice de contenidos">
+        <a href="#intro">1. Introducción</a>
+        <a href="#reglas">2. Reglas</a>
+        <a href="#trigonometricas">3. Trigonométricas</a>
+        <a href="#inversas">4. Trig. inversas</a>
+        <a href="#implicita">5. Implícita</a>
+        <a href="#logaritmica">6. Logarítmica</a>
+        <a href="#laboratorio">7. Laboratorio</a>
+        <a href="#practica">8. Ejercicios</a>
+      </aside>
+
+      <div class="content">
+        <section class="lesson-section" id="intro" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Idea central</span>
+            <h2>Introducción a las derivadas</h2>
+            <p>Una derivada mide qué tan rápido cambia una cantidad respecto a otra. En cálculo, nos dice la tasa de cambio instantánea de una función.</p>
+          </div>
+          <div class="two-column">
+            <article class="concept-panel">
+              <h3>Definición intuitiva</h3>
+              <p>Si una función describe una posición, su derivada describe velocidad. Si describe costo, su derivada aproxima el costo marginal.</p>
+              <div class="formula">f'(x) ≈ cambio en y / cambio en x</div>
+              <p>Cuando el intervalo se hace cada vez más pequeño, la razón promedio se convierte en razón instantánea.</p>
+            </article>
+            <article class="concept-panel">
+              <h3>Definición formal</h3>
+              <p>La derivada de <strong>f</strong> en <strong>x</strong> se define como el límite del cociente incremental:</p>
+              <div class="formula">f'(x) = lim<sub>h→0</sub> [f(x + h) - f(x)] / h</div>
+              <p>Si ese límite existe, la función es derivable en ese punto.</p>
+            </article>
+          </div>
+          <article class="wide-panel">
+            <h3>Interpretación geométrica</h3>
+            <p>La derivada en un punto es la pendiente de la recta tangente a la curva. En la gráfica, mueve el control para ver cómo cambia la tangente de <strong>f(x)=x²</strong>.</p>
+            <div class="slider-row">
+              <label for="tangentSlider">Punto x</label>
+              <input id="tangentSlider" type="range" min="-3" max="3" value="1" step="0.1">
+              <output id="tangentOutput">1.0</output>
+            </div>
+            <canvas class="graph-canvas" id="tangentCanvas" width="900" height="420"></canvas>
+          </article>
+          <div class="example-grid">
+            <article class="example-card">
+              <h3>Ejemplo 1</h3>
+              <p>Si f(x)=x², entonces f'(x)=2x. En x=3, la pendiente es 6.</p>
+            </article>
+            <article class="example-card">
+              <h3>Ejemplo 2</h3>
+              <p>Si f(x)=5x+2, entonces f'(x)=5. Las rectas tienen pendiente constante.</p>
+            </article>
+            <article class="example-card">
+              <h3>Ejemplo 3</h3>
+              <p>Si f(x)=7, entonces f'(x)=0. Una constante no cambia.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="lesson-section" id="reglas" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Herramientas</span>
+            <h2>Reglas de derivación</h2>
+            <p>Las reglas permiten derivar funciones compuestas por sumas, productos, cocientes y funciones dentro de funciones.</p>
+          </div>
+          <div class="rule-grid">
+            <article class="rule-card">
+              <h3>Regla del producto</h3>
+              <div class="formula">(uv)' = u'v + uv'</div>
+              <p>Ejemplo: y = x² sin(x)</p>
+              <ol>
+                <li>u=x², v=sin(x)</li>
+                <li>u'=2x, v'=cos(x)</li>
+                <li>y'=2x sin(x)+x² cos(x)</li>
+              </ol>
+            </article>
+            <article class="rule-card">
+              <h3>Regla del cociente</h3>
+              <div class="formula">(u/v)' = (u'v - uv') / v²</div>
+              <p>Ejemplo: y = (x²+1)/x</p>
+              <ol>
+                <li>u=x²+1, v=x</li>
+                <li>u'=2x, v'=1</li>
+                <li>y'=[2x·x-(x²+1)]/x²</li>
+              </ol>
+            </article>
+            <article class="rule-card">
+              <h3>Regla de la cadena</h3>
+              <div class="formula">[f(g(x))]' = f'(g(x))g'(x)</div>
+              <p>Ejemplo: y = sin(x²)</p>
+              <ol>
+                <li>Función externa: sin(u)</li>
+                <li>Función interna: u=x²</li>
+                <li>y'=cos(x²)·2x</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+
+        <section class="lesson-section" id="trigonometricas" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Funciones periódicas</span>
+            <h2>Derivadas trigonométricas</h2>
+            <p>Estas derivadas aparecen en movimiento circular, ondas, señales, electricidad y modelos periódicos.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Función</th><th>Derivada</th><th>Ejemplo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>sin(x)</td><td>cos(x)</td><td>d/dx[sin(3x)] = 3cos(3x)</td></tr>
+                <tr><td>cos(x)</td><td>-sin(x)</td><td>d/dx[cos(x²)] = -2x sin(x²)</td></tr>
+                <tr><td>tan(x)</td><td>sec²(x)</td><td>d/dx[tan(5x)] = 5sec²(5x)</td></tr>
+                <tr><td>sec(x)</td><td>sec(x)tan(x)</td><td>d/dx[sec(x+1)] = sec(x+1)tan(x+1)</td></tr>
+                <tr><td>csc(x)</td><td>-csc(x)cot(x)</td><td>d/dx[csc(2x)] = -2csc(2x)cot(2x)</td></tr>
+                <tr><td>cot(x)</td><td>-csc²(x)</td><td>d/dx[cot(x/2)] = -0.5csc²(x/2)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <article class="wide-panel">
+            <h3>Ejemplo paso a paso: y = x cos(x)</h3>
+            <ol class="steps">
+              <li>Identifica producto: u=x y v=cos(x).</li>
+              <li>Deriva cada parte: u'=1 y v'=-sin(x).</li>
+              <li>Aplica (uv)' = u'v + uv'.</li>
+              <li>Resultado: y' = cos(x) - x sin(x).</li>
+            </ol>
+          </article>
+        </section>
+
+        <section class="lesson-section" id="inversas" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Ángulos desde razones</span>
+            <h2>Derivadas trigonométricas inversas</h2>
+            <p>Las funciones inversas trigonométricas responden: ¿qué ángulo produce esta razón? Sus derivadas suelen incluir raíces y restricciones de dominio.</p>
+          </div>
+          <div class="rule-grid">
+            <article class="rule-card">
+              <h3>arcsin(x)</h3>
+              <div class="formula">d/dx[arcsin(x)] = 1 / √(1 - x²)</div>
+              <p>Ejemplo: d/dx[arcsin(2x)] = 2 / √(1 - 4x²).</p>
+            </article>
+            <article class="rule-card">
+              <h3>arccos(x)</h3>
+              <div class="formula">d/dx[arccos(x)] = -1 / √(1 - x²)</div>
+              <p>Ejemplo: d/dx[arccos(x²)] = -2x / √(1 - x⁴).</p>
+            </article>
+            <article class="rule-card">
+              <h3>arctan(x)</h3>
+              <div class="formula">d/dx[arctan(x)] = 1 / (1 + x²)</div>
+              <p>Ejemplo: d/dx[arctan(3x)] = 3 / (1 + 9x²).</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="lesson-section" id="implicita" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Cuando y está mezclada con x</span>
+            <h2>Diferenciación implícita</h2>
+            <p>Se usa cuando una ecuación define una relación entre x e y sin despejar y de forma directa.</p>
+          </div>
+          <article class="wide-panel">
+            <h3>Ejemplo guiado: x² + y² = 25</h3>
+            <ol class="steps">
+              <li>Deriva ambos lados respecto a x.</li>
+              <li>d/dx[x²] = 2x.</li>
+              <li>d/dx[y²] = 2y · y' por regla de la cadena.</li>
+              <li>La ecuación queda 2x + 2y y' = 0.</li>
+              <li>Despeja: y' = -x/y.</li>
+            </ol>
+            <button class="solution-button" data-solution="implicitSolution" type="button">Mostrar ejercicio guiado</button>
+            <div class="solution-box" id="implicitSolution">
+              <p>Para x³ + y³ = 6xy:</p>
+              <p>3x² + 3y²y' = 6y + 6xy'</p>
+              <p>y'(3y² - 6x) = 6y - 3x²</p>
+              <p>y' = (6y - 3x²) / (3y² - 6x)</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="lesson-section" id="logaritmica" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Potencias complicadas</span>
+            <h2>Diferenciación logarítmica</h2>
+            <p>Conviene cuando hay productos largos, cocientes con muchas partes o variables en base y exponente, como y = xˣ.</p>
+          </div>
+          <div class="two-column">
+            <article class="concept-panel">
+              <h3>Cuándo se usa</h3>
+              <p>Úsala si la función tiene factores multiplicados, raíces, exponentes variables o una forma que se simplifica con propiedades de logaritmos.</p>
+            </article>
+            <article class="concept-panel">
+              <h3>Procedimiento</h3>
+              <ol>
+                <li>Escribe y=f(x).</li>
+                <li>Toma ln en ambos lados.</li>
+                <li>Expande con propiedades de logaritmos.</li>
+                <li>Deriva implícitamente.</li>
+                <li>Despeja y' y sustituye y.</li>
+              </ol>
+            </article>
+          </div>
+          <article class="wide-panel">
+            <h3>Ejemplo: y = xˣ</h3>
+            <ol class="steps">
+              <li>ln(y) = ln(xˣ) = x ln(x).</li>
+              <li>Deriva: y'/y = ln(x) + 1.</li>
+              <li>Multiplica por y: y' = y[ln(x)+1].</li>
+              <li>Sustituye y: y' = xˣ[ln(x)+1].</li>
+            </ol>
+          </article>
+        </section>
+
+        <section class="lesson-section lab-section" id="laboratorio" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Laboratorio interactivo</span>
+            <h2>Calculadora y gráficas dinámicas</h2>
+            <p>Escribe una función con x. Puedes usar potencias, productos, cocientes, sin, cos, tan, asin, acos, atan, ln, exp y sqrt.</p>
+          </div>
+          <div class="lab-grid">
+            <article class="tool-panel">
+              <h3>Calculadora de derivadas</h3>
+              <label class="input-label" for="functionInput">Función f(x)</label>
+              <div class="input-row">
+                <input id="functionInput" type="text" value="x^3 - 2*x + sin(x)" spellcheck="false">
+                <button id="deriveButton" type="button">Derivar</button>
+              </div>
+              <div class="result-box">
+                <span>Resultado</span>
+                <strong id="derivativeResult">3*x^2 - 2 + cos(x)</strong>
+              </div>
+              <button class="solution-button" data-solution="calculatorSteps" type="button">Mostrar solución paso a paso</button>
+              <div class="solution-box visible" id="calculatorSteps">
+                <ol id="derivativeSteps"></ol>
+              </div>
+            </article>
+            <article class="tool-panel graph-panel">
+              <div class="graph-toolbar">
+                <h3>Función vs. derivada</h3>
+                <div class="legend">
+                  <span><i class="legend-dot function-dot"></i>f(x)</span>
+                  <span><i class="legend-dot derivative-dot"></i>f'(x)</span>
+                </div>
+              </div>
+              <canvas class="graph-canvas" id="functionCanvas" width="900" height="520"></canvas>
+            </article>
+          </div>
+        </section>
+
+        <section class="lesson-section" id="practica" data-progress>
+          <div class="section-heading">
+            <span class="section-kicker">Práctica activa</span>
+            <h2>Mini quizzes por tema</h2>
+            <p>Responde y recibe retroalimentación inmediata. Completar ejercicios aumenta tu progreso.</p>
+          </div>
+          <div class="quiz-grid" id="quizGrid"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Hecho para estudiar cálculo diferencial con práctica, visualización y pasos claros.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

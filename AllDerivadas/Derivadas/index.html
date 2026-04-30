@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Derivadas - Cálculo Diferencial Interactivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [["$", "$"], ["\\(", "\\)"]],
+                displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">📐</span>
+                <span>Derivadas</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Inicio</a>
+                <a href="#funciones" class="nav-link">Funciones</a>
+                <a href="#reglas" class="nav-link">Reglas</a>
+                <a href="#ejercicios" class="nav-link">Ejercicios</a>
+                <a href="https://github.com/Marcano2357/AllDerivadas" target="_blank" rel="noreferrer" class="nav-link">GitHub</a>
+            </div>
+
+            <button class="theme-toggle" aria-label="Alternar tema">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <button class="nav-toggle" aria-label="Menú">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Menú</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#home" class="sidebar-link">Inicio</a>
+                <a href="#funciones" class="sidebar-link">Funciones</a>
+                <a href="#reglas" class="sidebar-link">Reglas</a>
+                <a href="#ejercicios" class="sidebar-link">Ejercicios</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="home" class="section">
+                <h1>Aprende derivadas de forma interactiva</h1>
+                <p>Esta página reúne conceptos, reglas y ejercicios básicos de cálculo diferencial. La derivada describe cómo cambia una función en un instante específico.</p>
+                <div class="rule-card">
+                    <h3>Definición principal</h3>
+                    <p>La derivada de una función se define como:</p>
+                    <p>$$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$</p>
+                </div>
+                <div class="function-list">
+                    <div class="function-card">
+                        <span class="function-name">Interpretación geométrica</span>
+                        <span class="function-deriv">pendiente de la tangente</span>
+                    </div>
+                    <div class="function-card">
+                        <span class="function-name">Interpretación física</span>
+                        <span class="function-deriv">velocidad instantánea</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="funciones" class="section">
+                <h2>Funciones comunes</h2>
+                <p>Estas son algunas derivadas frecuentes que conviene memorizar.</p>
+                <div class="function-list">
+                    <div class="function-card"><span class="function-name">$f(x)=c$</span><span class="function-deriv">$f'(x)=0$</span></div>
+                    <div class="function-card"><span class="function-name">$f(x)=x^n$</span><span class="function-deriv">$f'(x)=nx^{n-1}$</span></div>
+                    <div class="function-card"><span class="function-name">$f(x)=\sin(x)$</span><span class="function-deriv">$f'(x)=\cos(x)$</span></div>
+                    <div class="function-card"><span class="function-name">$f(x)=\cos(x)$</span><span class="function-deriv">$f'(x)=-\sin(x)$</span></div>
+                    <div class="function-card"><span class="function-name">$f(x)=\tan(x)$</span><span class="function-deriv">$f'(x)=\sec^2(x)$</span></div>
+                    <div class="function-card"><span class="function-name">$f(x)=e^x$</span><span class="function-deriv">$f'(x)=e^x$</span></div>
+                    <div class="function-card"><span class="function-name">$f(x)=\ln(x)$</span><span class="function-deriv">$f'(x)=\frac{1}{x}$</span></div>
+                </div>
+            </section>
+
+            <section id="reglas" class="section">
+                <h2>Reglas de derivación</h2>
+                <div class="rule-card">
+                    <h3>Regla de la potencia</h3>
+                    <p>Si $f(x)=x^n$, entonces $f'(x)=nx^{n-1}$.</p>
+                    <p>Ejemplo: Si $f(x)=x^3$, entonces $f'(x)=3x^2$.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Regla de la constante</h3>
+                    <p>La derivada de cualquier constante es cero: $\frac{d}{dx}[c]=0$.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Regla del producto</h3>
+                    <p>Si $h(x)=f(x)g(x)$, entonces $h'(x)=f'(x)g(x)+f(x)g'(x)$.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Regla del cociente</h3>
+                    <p>Si $h(x)=\frac{f(x)}{g(x)}$, entonces $h'(x)=\frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^2}$.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Regla de la cadena</h3>
+                    <p>Si $h(x)=f(g(x))$, entonces $h'(x)=f'(g(x))g'(x)$.</p>
+                </div>
+            </section>
+
+            <section id="ejercicios" class="section">
+                <h2>Ejercicios</h2>
+                <p>Resuelve y verifica tu respuesta. Puedes escribir exponentes con `^`, por ejemplo `20x^3`.</p>
+
+                <div class="exercise-grid">
+                    <div class="rule-card">
+                        <h3>Ejercicio 1: Potencia</h3>
+                        <p>Encuentra la derivada de $f(x)=5x^4$.</p>
+                        <input type="text" id="powerEx1" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkPowerEx1()" class="btn-check">Verificar</button>
+                        <p id="powerEx1Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 2: Regla de la cadena</h3>
+                        <p>Deriva $f(x)=2\sin(3x)$.</p>
+                        <input type="text" id="trigEx2" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkTrigEx2()" class="btn-check">Verificar</button>
+                        <p id="trigEx2Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 3: Derivación implícita</h3>
+                        <p>Si $x^2+y^2=25$, encuentra $\frac{dy}{dx}$.</p>
+                        <input type="text" id="implicitEx3" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkImplicitEx3()" class="btn-check">Verificar</button>
+                        <p id="implicitEx3Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 4: Polinomio</h3>
+                        <p>Deriva $f(x)=4x^3-2x^2+5x-7$.</p>
+                        <input type="text" id="polyEx4" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkPolyEx4()" class="btn-check">Verificar</button>
+                        <p id="polyEx4Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 5: Producto</h3>
+                        <p>Deriva $f(x)=(3x^2+2)(x-1)$.</p>
+                        <input type="text" id="productEx5" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkProductEx5()" class="btn-check">Verificar</button>
+                        <p id="productEx5Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 6: Cociente</h3>
+                        <p>Deriva $f(x)=\frac{x^2+1}{x}$.</p>
+                        <input type="text" id="quotientEx6" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkQuotientEx6()" class="btn-check">Verificar</button>
+                        <p id="quotientEx6Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 7: Exponencial</h3>
+                        <p>Deriva $f(x)=e^{3x^2}$.</p>
+                        <input type="text" id="expEx7" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkExpEx7()" class="btn-check">Verificar</button>
+                        <p id="expEx7Result" class="result"></p>
+                    </div>
+
+                    <div class="rule-card">
+                        <h3>Ejercicio 8: Logaritmo</h3>
+                        <p>Deriva $f(x)=\ln(5x)$.</p>
+                        <input type="text" id="logEx8" placeholder="Tu respuesta..." class="input-answer">
+                        <button onclick="checkLogEx8()" class="btn-check">Verificar</button>
+                        <p id="logEx8Result" class="result"></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p class="footer-text">© 2026 Derivadas. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="https://github.com/Marcano2357" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
