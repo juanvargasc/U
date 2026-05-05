@@ -1,4 +1,4 @@
-package Hello_java;
+package Curso_Mouredev;
 
 public class HelloWorld {
     public static void main(String[] args) {
