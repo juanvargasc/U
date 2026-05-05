@@ -28,6 +28,8 @@ Scanner sc = new Scanner(System.in);
         if (precios[i] < menor) menor = precios[i];
     }
     System.out.println("Plato más caro: $" + mayor);
-    System.out.println("Plato más barato: $" + menor);
+    System.out.println("Plato más barato: $" + menor);    
+    sc.close();
 }
+
 }

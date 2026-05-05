@@ -13,6 +13,7 @@ public class test {
         System.out.println("Los nombres de las mascotas son:");
         for (int i = 0; i < masc.length; i++) {
             System.out.println(masc[i]);
+            sc.close();
         
         }
     }

@@ -35,5 +35,6 @@ public class Dias_semana {
                 System.out.println("Error");
                 break;
         }
+        sc.close();
 }
 }

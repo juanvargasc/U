@@ -13,6 +13,9 @@ public class pipe {
         for (int i = 0; i < animals.length; i++) {
             System.out.println("Ingrese el nombre del animal " + (i+1) + " : " );
             animals[i] = scanner.nextLine();
+            
         }
+        
     }
+    
 }

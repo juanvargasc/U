@@ -7,5 +7,6 @@ public class t {
         System.out.println("Ingrese su edad: ");
         int edad = sc.nextInt();        
         System.out.println("Su edad es: " + edad);
+        sc.close();
     }
 }

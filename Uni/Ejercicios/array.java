@@ -7,5 +7,6 @@ public class array {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         System.out.println(animals[n]);
+        sc.close();
     }
 }

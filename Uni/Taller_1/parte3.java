@@ -47,5 +47,7 @@ public class parte3 {
         } else {
             System.out.println("El pedido aparece " + contador + " vez/veces.");
         }
+        scanner.close();
     }
+    
 }

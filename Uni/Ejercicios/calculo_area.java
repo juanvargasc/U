@@ -37,5 +37,6 @@ public class calculo_area {
                 System.out.println("Error");
                 break;
         }
+        sc.close();
     }
 }

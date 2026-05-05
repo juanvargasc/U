@@ -17,5 +17,6 @@ public class ctl_acceso_personas {
     } else {
     System.out.println("Acceso denegado");
     }
+    sc.close();
     }
 }

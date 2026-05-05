@@ -118,7 +118,7 @@ public class Calculadora {
                 System.out.println("ERROR: Por favor ingrese un número válido");
             }
         }
-
+        scanner.close();
       
     }
 }

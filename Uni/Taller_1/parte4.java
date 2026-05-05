@@ -34,5 +34,6 @@ System.out.println("PUNTO 4: Ventas por Zona y Turno (3x3)");
             System.out.println();
         }
         System.out.println("Ventas totales del restaurante: $" + sumaVentas);
+        sc.close();
     }
 }

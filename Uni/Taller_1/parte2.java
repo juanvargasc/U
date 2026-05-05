@@ -22,5 +22,6 @@ import java.util.Scanner;
         
         System.out.println("La suma total es: " + suma);
         System.out.println("El promedio es: " + promedio);
+        sc.close();
     }
 }
